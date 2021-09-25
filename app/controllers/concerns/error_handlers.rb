@@ -1,7 +1,7 @@
-module ErrrorHandlers
-  extend ActiveSpport::Concern
+module ErrorHandlers
+  extend ActiveSupport::Concern
 
-  include do
+  included do
     rescue_from StandardError, with: :rescue500
     rescue_from ApplicationController::Forbidden, with: :rescue403
     rescue_from ApplicationController::IpAdressRejected, with: :rescue403

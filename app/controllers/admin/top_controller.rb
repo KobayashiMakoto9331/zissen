@@ -1,6 +1,6 @@
-class Admin::TopController < ApplicationController
+class Admin::TopController < Admin::Base
 
   def index
-    raise IpAdressRejected
+  
   end
 end
