@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_09_23_112615) do
     t.string "hashed_password"
     t.date "start_date", null: false
     t.date "end_date"
-    t.boolean "suspended", null: false
+    t.boolean "suspended", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index "lower((email)::text)", name: "index_staff_members_on_LOWER_email", unique: true
