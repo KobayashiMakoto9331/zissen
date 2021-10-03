@@ -34,6 +34,7 @@ gem "kaminari"
 gem "date_validator"
 gem "valid_email2"
 gem "nokogiri"
+gem 'pry-rails'
 
 
 group :development, :test do

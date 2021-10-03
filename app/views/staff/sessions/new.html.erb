@@ -1,0 +1,20 @@
+<% @title = "ログイン" %>
+
+<div id="login-form">
+  <h1><%= @title %></h1>
+
+  <%= form_with(model: @form, url: staff_session_path, local:true) do |f| %>
+    <div>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div>
+      <%= f.label :password %>
+      <%= f.text_field :password %>
+    </div>
+    <div>
+      <%= f.submit "ログイン" %>
+    </div>
+  <%end%>
+
+</div>
