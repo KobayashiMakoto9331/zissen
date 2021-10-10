@@ -4,7 +4,7 @@ class Admin::SessionsController < Admin::Base
   end
 
   def create
-    @form = Admin::LoginForm.new(params[:admin_login_form])
+    @form = Admin::LoginForm.new(login_form_params)
     administrator = Administrator.find_by("LOWER(email)=?", @form.email.downcase) if @form.email.present?
 
     if Admin::Authenticator.new(administrator).authenticate(@form.password)
@@ -29,5 +29,12 @@ class Admin::SessionsController < Admin::Base
     flash[:notice] = "ログアウトしました"
     redirect_to admin_root_path
   end
+
+  private
+
+  def login_form_params
+    params.require(:admin_login_form).permit(:email, :password)
+  end
+
 
 end
