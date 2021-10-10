@@ -11,6 +11,27 @@ describe "職員による自分のアカウントの管理" do
       }
   end
 
+  describe "情報表示" do
+    let(:staff_member) { create(:staff_member) }
+
+    it "成功" do
+      get staff_account_url
+      expect(response.status).to eq(200)
+    end
+
+    it "停止フラグがセットされたら強制的にログアウト" do
+      staff_member.update_column(:suspended, true)
+      get staff_account_url
+      expect(response).to redirect_to staff_root_path
+    end
+
+    it "セッションタイムアウト" do
+      travel_to Staff::Base::TIMEOUT.from_now.advance(seconds: 1)
+      get staff_account_url
+      expect(response).to redirect_to staff_login_path
+    end
+  end
+
   describe "更新" do
     let(:params_hash) { attributes_for(:staff_member) }
     let(:staff_member) { create(:staff_member) }

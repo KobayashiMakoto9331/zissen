@@ -1,4 +1,6 @@
 class Admin::SessionsController < Admin::Base
+  skip_before_action :authorize
+
   def new
     @form = Admin::LoginForm
   end
@@ -13,7 +15,8 @@ class Admin::SessionsController < Admin::Base
         flash[:alert] = "アカウントが停止されています"
         render :new
       else
-        session[:administrator_id]= administrator.id
+        session[:administrator_id] = administrator.id
+        session[:admin_last_access_time] = Time.current
         flash[:notice] = "ログインしました"
         redirect_to admin_root_path
       end
