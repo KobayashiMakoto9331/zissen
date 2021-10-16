@@ -3,7 +3,8 @@
 
 <div class="table-wrapper">
   <div class="links">
-    <%= link_to "アカウント情報編集", edit_staff_account_path %>
+    <%= link_to "アカウント情報編集", edit_staff_account_path %> |
+    <%= link_to "パスワード変更", edit_staff_password_path %>
   </div>
 
   <table class="attributes">
@@ -28,6 +29,11 @@
       <td class="email">
         <%= @staff_member.email %>
       </td>
+    </tr>
+
+    <tr>
+      <th>パスワード</th>
+      <td class="password">********</td>
     </tr>
 
     <tr>
