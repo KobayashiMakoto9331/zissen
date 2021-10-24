@@ -26,7 +26,7 @@ class Staff::CustomersController < Staff::Base
     @customer_form = Staff::CustomerForm.new
     @customer_form.assign_attributes(params[:form])
     if @customer_form.save
-      flash[:notice] = "顧客を追加しまいした"
+      flash[:notice] = "顧客を追加しました"
       redirect_to staff_customers_path
     else
       flash[:alert] = "入力に誤りがあります"
@@ -41,7 +41,7 @@ class Staff::CustomersController < Staff::Base
       flash[:notice] = "顧客情報を更新しました"
       redirect_to staff_customers_path
     else
-      flash[:alert] = "入力に誤りがあります"
+      flash.now[:alert] = "入力に誤りがあります"
       render :new
     end
   end
