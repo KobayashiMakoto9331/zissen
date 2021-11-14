@@ -6,6 +6,8 @@
     <%= link_to "新規顧客", new_staff_customer_path %>
   </div>
 
+  <%= render "search_form" %>
+
   <%= paginate @customers %>
 
 <table class="listing">
