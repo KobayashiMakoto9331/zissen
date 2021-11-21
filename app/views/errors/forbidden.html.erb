@@ -3,7 +3,7 @@
     <p>
       <%= 
         case @exception
-        when ApplicationController::IpAdressRejected
+        when ApplicationController::IpAddressRejected
           "あなたのIPアドレス(#{request.ip})からは使用できません"
         else
           "指定されたページが見つかりません"

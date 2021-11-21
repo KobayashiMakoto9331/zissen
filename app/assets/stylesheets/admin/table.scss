@@ -20,7 +20,7 @@ div.table-wrapper{
         color: $very_light_gray;
       }
       th, td{ padding: $narrow; }
-      td.email, td.date {font-family: monospace;}
+      td.email, td.ip, td.date {font-family: monospace;}
       td.boolean { text-align: center;}
       td.actions{
         text-align: center;
@@ -34,4 +34,5 @@ div.table-wrapper{
     tr:nth-child(even) {background-color: $very_light_gray;}
     tr:nth-child(odd) {background-color: $light_gray;}
   }
+
 }
