@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_16_131146) do
+ActiveRecord::Schema.define(version: 2021_11_21_081020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,16 @@ ActiveRecord::Schema.define(version: 2021_11_16_131146) do
     t.index ["given_name_kana"], name: "index_customers_on_given_name_kana"
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.bigint "program_id", null: false
+    t.bigint "customer_id", null: false
+    t.boolean "approved", default: false, null: false
+    t.boolean "canceled", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_entries_on_customer_id"
+  end
+
   create_table "phones", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.bigint "address_id"
@@ -97,6 +107,20 @@ ActiveRecord::Schema.define(version: 2021_11_16_131146) do
     t.index ["address_id"], name: "index_phones_on_address_id"
     t.index ["customer_id"], name: "index_phones_on_customer_id"
     t.index ["number_for_index"], name: "index_phones_on_number_for_index"
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.integer "registrant_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "application_start_time", null: false
+    t.datetime "application_end_time", null: false
+    t.integer "min_number_of_participants"
+    t.integer "max_number_of_participants"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["application_start_time"], name: "index_programs_on_application_start_time"
+    t.index ["registrant_id"], name: "index_programs_on_registrant_id"
   end
 
   create_table "staff_events", force: :cascade do |t|
@@ -126,5 +150,6 @@ ActiveRecord::Schema.define(version: 2021_11_16_131146) do
   add_foreign_key "addresses", "customers"
   add_foreign_key "phones", "addresses"
   add_foreign_key "phones", "customers"
+  add_foreign_key "programs", "staff_members", column: "registrant_id"
   add_foreign_key "staff_events", "staff_members"
 end
