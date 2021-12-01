@@ -3,7 +3,7 @@
 
 div#wrapper{
   div#container{
-    div#genetic-form{
+    div#generic-form{
       width: 480px;
       margin: $wide * 2 auto;
       padding: $wide * 2;
@@ -23,6 +23,7 @@ div#wrapper{
             padding-left: $narrow;
             color: $red;
           }
+          span.instruction { font-size: $small; color: $dark_gray; }
         }
         div.input-block{
           input { margin-right: $narrow * 2; }
@@ -50,6 +51,10 @@ div#wrapper{
           display: inline;
           padding: 0;
           label { color: $red; }
+          input { background-color: $pink; }
+        }
+        div.with-errors {
+          label { color: $red;}
           input { background-color: $pink; }
         }
         div.error-message {

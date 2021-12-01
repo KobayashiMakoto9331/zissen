@@ -21,7 +21,7 @@ class Staff::Base < ApplicationController
   end
 
   def current_staff_member
-    current_staff_member ||= StaffMember.find_by(id: session[:staff_member_id]) if session[:staff_member_id]
+    @current_staff_member ||= StaffMember.find_by(id: session[:staff_member_id]) if session[:staff_member_id]
   end
 
   def check_account
