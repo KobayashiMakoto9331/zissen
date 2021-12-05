@@ -1,0 +1,9 @@
+<% p = ProgramPresenter.new(program, self) %>
+<tr>
+  <td><%= p.title %></th>
+  <td class="date"><%= p.application_start_time %></th>
+  <td class="date"><%= p.application_end_time%></th>
+  <td class="numeric"><%= p.min_number_of_participants %></th>
+  <td class="numeric"><%= p.max_number_of_participants %></th>
+  <td class="actions"><%= link_to "詳細", customer_program_path(program) %></th>
+</tr>

@@ -1,6 +1,6 @@
 class ProgramPresenter < ModelPresenter
   delegate :title, :description, to: :object
-  delegate :number_with_delimiter, to: :view_context
+  delegate :number_with_delimiter, :button_to, :current_customer, to: :view_context
 
 
   def application_start_time
@@ -29,6 +29,69 @@ class ProgramPresenter < ModelPresenter
 
   def registrant
     object.registrant.family_name + " " + object.registrant.given_name
+  end
+
+  def apply_or_cancel_button
+    if entry = object.entries.find_by(customer_id: current_customer.id)
+      status = cancellation_status(entry)
+
+      button_to cancel_button_label_text(status),
+      # cancel_customer_program_entry(object), 
+      [ :cancel, :customer, object, :entry ],
+      disabled: status != :cancellable, method: :patch,
+      data: { confirm: "本当にキャンセルしますか？" }
+    else
+      status = program_status
+      button_to button_label_text(status),
+      # customer_program_entry_path(object)
+      [ :customer, object, :entry ],
+        disabled: status != :available, method: :post,
+        data: { confirm: "本当に申し込みますか？" }
+    end
+  end
+
+  private
+
+  def program_status
+    if object.application_end_time.try(:<, Time.current)
+      :closed
+    elsif object.max_number_of_participants.try(:<=, object.applicants.count)
+      :full
+    else
+      :available
+    end
+  end
+
+  def button_label_text(status)
+    case status
+    when :closed
+      "募集終了"
+    when :full
+      "満員"
+    else
+      "申し込む"
+    end
+  end
+
+  def cancellation_status(entry)
+    if object.application_end_time.try(:<, Time.current)
+      :closed
+    elsif entry.canceled?
+      :canceled
+    else
+      :cancellable
+    end
+  end
+
+  def cancel_button_label_text(status)
+    case status
+    when :closed
+      "申し込み済み（キャンセル不可）"
+    when :canceled
+      "キャンセル済み"
+    else :cancellable
+      "キャンセルする"
+    end
   end
 
 end
