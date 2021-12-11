@@ -9,10 +9,26 @@ class Staff::AccountsController < Staff::Base
   end
 
   def update
-    staff_member = current_staff_member
-    if staff_member.update(staff_member_params)
-      flash[:notice] = "アカウント情報を更新しました"
-      redirect_to staff_account_path
+    @staff_member = current_staff_member
+    @staff_member.assign_attributes(staff_member_params)
+
+    if params[:commit]
+      if @staff_member.save
+        flash[:notice] = "アカウント情報を更新しました"
+        redirect_to staff_account_path
+      else
+        render :edit
+      end
+    else
+      render :edit
+    end
+  end
+
+  def confirm
+    @staff_member = current_staff_member
+    @staff_member.assign_attributes(staff_member_params)
+    if @staff_member.valid?
+      render :confirm
     else
       render :edit
     end

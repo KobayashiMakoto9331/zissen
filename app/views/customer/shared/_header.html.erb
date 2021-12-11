@@ -9,4 +9,5 @@
       link_to "ログイン", customer_login_path
     end 
   %>
+  <%= link_to_if current_customer, "アカウント", customer_account_path %>
 </header>

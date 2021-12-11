@@ -1,0 +1,12 @@
+<% @title = "アカウントの編集" %>
+<h1><%= @title %></h1>
+
+<div id="generic-form">
+  <%= form_with model: @customer_form, scope: "form", url: confirm_customer_account_path(@customer) do |f| %>
+    <%= render "form", f: f %>
+    <div class="buttons">
+      <%= f.submit "確認画面へ進む" %>
+      <%= link_to "キャンセル", customer_account_path(@customer) %>
+    </div>
+  <% end %>
+</div>
