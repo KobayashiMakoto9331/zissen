@@ -10,4 +10,5 @@
     end 
   %>
   <%= link_to_if current_customer, "アカウント", customer_account_path %>
+  <%= link_to_if current_customer, "お問い合わせ", new_customer_message_path %>
 </header>
