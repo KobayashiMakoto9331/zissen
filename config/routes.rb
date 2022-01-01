@@ -17,6 +17,15 @@ Rails.application.routes.draw do
         end
       end
       get "messages/count" => "ajax#message_count"
+      resources :messages, only: [ :index, :show, :destroy ] do
+        get :inbound, :outbound, :deleted, on: :collection #問い合わせ一覧、送信一覧、ゴミ箱一覧
+      end
+      resources :messages, only:[ :index, :show, :destroy ] do
+        get :inbound, :outbound, :delete, on: :collection
+        resource :reply, only: [ :new, :create ] do
+          post :confirm
+        end
+      end
     end
   end
 
